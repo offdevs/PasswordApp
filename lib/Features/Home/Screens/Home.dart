@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:passwords_application/Core/Services/GenPasswords/PasswordGenerator.dart';
 import 'package:passwords_application/Core/Services/StorageService/StorageService.dart';
-import 'package:passwords_application/Core/logger/AppLogger.dart';
 import 'package:passwords_application/Features/Home/Widgets/PasswordWidget.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -29,7 +28,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<void> getPasswords() async {
     final List<Map<String, dynamic>> files = await StorageService.getFile();
-    AppLogger.info(files.toString());
     setState(() {
       passwords = files;
     });
@@ -47,7 +45,6 @@ class _HomeScreenState extends State<HomeScreen> {
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           final List<Map<String, dynamic>> gen = createPasswords();
-          print(gen);
           await StorageService.saveFile(gen);
           setState(() {
             passwords = gen;

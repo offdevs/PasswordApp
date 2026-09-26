@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:passwords_application/Core/Services/SecureStorageService/SecureStorageService.dart';
 import 'package:passwords_application/Core/Services/StorageService/StorageService.dart';
 import 'package:passwords_application/Features/Home/Screens/Home.dart';
 
@@ -15,6 +16,8 @@ class _LoaderScreenState extends State<LoaderScreen> {
 
   Future<void> init() async {
     await StorageService.init();
+    await SecureStorageService.init();
+
     setState(() {
       loaded = true;
     });

@@ -17,11 +17,6 @@ class StorageService {
 
   static Future<List<Map<String, dynamic>>> getFile() async {
     final File file = File("$path/$archiveName");
-    final exist = await file.exists();
-    AppLogger.info(exist.toString());
-    AppLogger.info(file.path);
-    AppLogger.info(File("$path/$file").toString());
-    AppLogger.info(File("$path/$archiveName").exists().toString());
     if (await file.exists()) {
       final fileReaded = await file.readAsString();
       final data = jsonDecode(fileReaded);
