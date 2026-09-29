@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:passwords_application/Core/Services/GenPasswords/PasswordGenerator.dart';
-import 'package:passwords_application/Core/Services/StorageService/StorageService.dart';
+import 'package:passwords_application/Features/StorageService/Services/StorageService.dart';
 import 'package:passwords_application/Features/Home/Widgets/PasswordWidget.dart';
 
 class HomeScreen extends StatefulWidget {
