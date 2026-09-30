@@ -1,7 +1,5 @@
 import 'dart:io';
-import 'dart:convert';
 
-import 'package:passwords_application/Core/logger/AppLogger.dart';
 import 'package:path_provider/path_provider.dart';
 
 class StorageService {
@@ -15,16 +13,13 @@ class StorageService {
     directory = null;
   }
 
-  static Future<List<Map<String, dynamic>>> getFile() async {
+  static Future<String> getFile() async {
     final File file = File("$path/$archiveName");
     if (await file.exists()) {
       final fileReaded = await file.readAsString();
-      final data = jsonDecode(fileReaded);
-      return (data as List)
-          .map((item) => item as Map<String, dynamic>)
-          .toList();
+      return fileReaded;
     } else {
-      return [];
+      return "";
       //throw Exception("Archive not exist or uri invalid.");
     }
   }
@@ -33,7 +28,6 @@ class StorageService {
     final File file = File("$path/$archiveName");
 
     await file.writeAsString(data);
-    AppLogger.info("$path/$archiveName");
   }
 
   static Future<void> deleteFile() async {
