@@ -29,10 +29,8 @@ class StorageService {
     }
   }
 
-  static Future<void> saveFile(List<Map<String, dynamic>> rawData) async {
+  static Future<void> saveFile(String data) async {
     final File file = File("$path/$archiveName");
-
-    final String data = jsonEncode(rawData);
 
     await file.writeAsString(data);
     AppLogger.info("$path/$archiveName");

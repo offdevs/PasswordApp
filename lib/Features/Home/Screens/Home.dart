@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:passwords_application/Core/Services/GenPasswords/PasswordGenerator.dart';
+import 'package:passwords_application/Core/logger/AppLogger.dart';
+import 'package:passwords_application/Features/StorageService/Repositories/StorageRepository.dart';
 import 'package:passwords_application/Features/StorageService/Services/StorageService.dart';
 import 'package:passwords_application/Features/Home/Widgets/PasswordWidget.dart';
 
@@ -11,13 +13,13 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<Map<String, dynamic>>? passwords;
+  List<Map<String, String>>? passwords;
 
-  List<Map<String, dynamic>> createPasswords() {
-    final List<Map<String, dynamic>> gen = [];
+  List<Map<String, String>> createPasswords() {
+    final List<Map<String, String>> gen = [];
 
     for (int i = 0; i < 3; i++) {
-      final Map<String, dynamic> passGen = {
+      final Map<String, String> passGen = {
         "name": "$i",
         "value": PasswordGenerator.generate(length: 32),
       };
@@ -27,9 +29,11 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> getPasswords() async {
-    final List<Map<String, dynamic>> files = await StorageService.getFile();
+    final List<Map<String, String>> obtainedPasswords =
+        await StorageRepository.getPasswords();
+
     setState(() {
-      passwords = files;
+      passwords = obtainedPasswords;
     });
   }
 
@@ -44,8 +48,8 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          final List<Map<String, dynamic>> gen = createPasswords();
-          await StorageService.saveFile(gen);
+          final List<Map<String, String>> gen = createPasswords();
+          await StorageRepository.savePasswords(passwords: gen);
           setState(() {
             passwords = gen;
           });
@@ -57,8 +61,8 @@ class _HomeScreenState extends State<HomeScreen> {
         itemBuilder: (_, index) {
           final password = passwords![index];
           return PasswordWidget(
-            label: password["name"],
-            value: password["value"],
+            label: password["name"]!,
+            value: password["value"]!,
           );
         },
       ),
