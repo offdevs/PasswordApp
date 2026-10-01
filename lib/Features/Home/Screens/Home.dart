@@ -13,19 +13,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   List<Map<String, String>>? passwords;
 
-  List<Map<String, String>> createPasswords() {
-    final List<Map<String, String>> gen = [];
-
-    for (int i = 0; i < 3; i++) {
-      final Map<String, String> passGen = {
-        "name": "$i",
-        "value": PasswordGenerator.generate(length: 32),
-      };
-      gen.add(passGen);
-    }
-    return gen;
-  }
-
   Future<void> getPasswords() async {
     final List<Map<String, String>> obtainedPasswords =
         await StorageRepository.getPasswords();
@@ -45,13 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          final List<Map<String, String>> gen = createPasswords();
-          await StorageRepository.savePasswords(passwords: gen);
-          setState(() {
-            passwords = gen;
-          });
-        },
+        onPressed: () async {},
         child: Icon(Icons.add),
       ),
       body: ListView.builder(
