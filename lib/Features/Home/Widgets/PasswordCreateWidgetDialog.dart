@@ -13,14 +13,16 @@ class PasswordCreateWidgetDialog extends StatefulWidget {
 
 class _PasswordCreateWidgetDialogState
     extends State<PasswordCreateWidgetDialog> {
+  double lengthPassword = 32;
+  TextEditingController name = TextEditingController();
+  TextEditingController password = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-    final TextEditingController name = TextEditingController();
-    final TextEditingController password = TextEditingController();
-
     return Dialog(
       child: SizedBox(
         height: 350,
+        width: 600,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
@@ -41,13 +43,44 @@ class _PasswordCreateWidgetDialogState
                   IconButton.filled(
                     onPressed: () async {
                       final String passwordGen = PasswordGenerator.generate(
-                        length: 32,
+                        length: lengthPassword.toInt(),
                       );
                       password.text = passwordGen;
                     },
                     icon: Icon(Icons.autorenew),
                   ),
                 ],
+              ),
+              SizedBox(width: 30),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Slider(
+                        value: lengthPassword,
+                        min: 8,
+                        max: 128,
+                        divisions: 120,
+                        onChanged: (value) {
+                          setState(() {
+                            lengthPassword = value;
+                          });
+                          password.text = PasswordGenerator.generate(
+                            length: value.toInt(),
+                          );
+                        },
+                      ),
+                    ),
+                    Text(
+                      lengthPassword.toInt().toString(),
+                      style: TextStyle(
+                        fontSize: 35,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
               ),
               SizedBox(height: 50),
               TextButton.icon(
