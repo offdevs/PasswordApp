@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:passwords_application/Core/Services/GenPasswords/PasswordGenerator.dart';
+import 'package:passwords_application/Features/Home/Widgets/PasswordCreateWidgetDialog.dart';
 import 'package:passwords_application/Features/StorageService/Repositories/StorageRepository.dart';
 import 'package:passwords_application/Features/Home/Widgets/PasswordWidget.dart';
 
@@ -32,18 +32,47 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () async {},
+        onPressed: () async {
+          await showDialog(
+            context: context,
+            builder: (context) => PasswordCreateWidgetDialog(),
+          );
+          await getPasswords();
+        },
         child: Icon(Icons.add),
       ),
-      body: ListView.builder(
-        itemCount: passwords?.length ?? 0,
-        itemBuilder: (_, index) {
-          final password = passwords![index];
-          return PasswordWidget(
-            label: password["name"]!,
-            value: password["value"]!,
-          );
-        },
+      body: Column(
+        children: [
+          Expanded(
+            child: ListView.builder(
+              itemCount: passwords?.length ?? 0,
+              itemBuilder: (_, index) {
+                final password = passwords![index];
+                return PasswordWidget(
+                  label: password["name"]!,
+                  value: password["value"]!,
+                );
+              },
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: SizedBox(
+              height: 200,
+              child: Row(
+                children: [
+                  IconButton.filled(
+                    onPressed: () async {
+                      await StorageRepository.deletePasswords();
+                      await getPasswords();
+                    },
+                    icon: Icon(Icons.delete, color: Colors.red),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
