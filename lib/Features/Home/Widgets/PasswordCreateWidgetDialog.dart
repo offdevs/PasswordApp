@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:passwords_application/Core/Services/GenPasswords/PasswordGenerator.dart';
-import 'package:passwords_application/Core/logger/AppLogger.dart';
 import 'package:passwords_application/Features/StorageService/Repositories/StorageRepository.dart';
 
 class PasswordCreateWidgetDialog extends StatefulWidget {
@@ -28,16 +27,15 @@ class _PasswordCreateWidgetDialogState
           child: Column(
             children: [
               Row(
-                children: [Expanded(child: TextField(controller: name))],
+                children: [
+                  Expanded(child: TextField(controller: name, maxLength: 16)),
+                ],
               ),
               SizedBox(height: 50),
               Row(
                 children: [
                   Expanded(
-                    child: TextField(
-                      controller: password,
-                      onChanged: (value) => AppLogger.info(value),
-                    ),
+                    child: TextField(controller: password, maxLength: 128),
                   ),
                   SizedBox(width: 30),
                   IconButton.filled(

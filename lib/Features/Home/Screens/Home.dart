@@ -49,8 +49,10 @@ class _HomeScreenState extends State<HomeScreen> {
               itemBuilder: (_, index) {
                 final password = passwords![index];
                 return PasswordWidget(
+                  id: password["id"]!,
                   label: password["name"]!,
                   value: password["value"]!,
+                  refresh: getPasswords,
                 );
               },
             ),
