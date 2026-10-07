@@ -5,7 +5,8 @@ import 'package:path_provider/path_provider.dart';
 class StorageService {
   static Directory? directory;
   static String? path;
-  static final String archiveName = "passwords.json";
+  static final String archiveName =
+      "passwords.json"; //FIXME PONER UN MANEJO DE ERRORES CON APP EXCEPTION!
 
   static Future<void> init() async {
     directory = await getApplicationSupportDirectory();
