@@ -7,9 +7,9 @@
 </p>
 
 <p align="center">
-  ![Platform](https://img.shields.io/badge/Platform-Linux_only-1793D1?logo=linux&logoColor=white)
-  ![Version](https://img.shields.io/badge/Version-1.0.0-blue)
-  ![Status](https://img.shields.io/badge/Status-Early_Release-orange)
+  <img src="https://img.shields.io/badge/Platform-Linux_only-1793D1?logo=linux&logoColor=white" alt="Platform">
+  <img src="https://img.shields.io/badge/Version-1.0.0-blue" alt="Version">
+  <img src="https://img.shields.io/badge/Status-Early_Release-orange" alt="Status">
 </p>
 
 ---
