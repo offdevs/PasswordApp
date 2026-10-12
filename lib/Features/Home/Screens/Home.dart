@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:passwords_application/Features/Home/Widgets/PasswordCreateWidgetDialog.dart';
+import 'package:passwords_application/Features/Home/Dialogs/DeletePasswordsDialog.dart';
+import 'package:passwords_application/Features/Home/Dialogs/PasswordCreateWidgetDialog.dart';
 import 'package:passwords_application/Features/StorageService/Repositories/StorageRepository.dart';
 import 'package:passwords_application/Features/Home/Widgets/PasswordWidget.dart';
 
@@ -65,8 +66,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   IconButton.filled(
                     onPressed: () async {
-                      await StorageRepository.deletePasswords();
-                      await getPasswords();
+                      await showDialog(
+                        context: context,
+                        builder: (context) =>
+                            DeletePasswordsDialog(reloadFunc: getPasswords),
+                      );
                     },
                     icon: Icon(Icons.delete, color: Colors.red),
                   ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:passwords_application/Features/Home/Widgets/PasswordEditWidgetDialog.dart';
+import 'package:passwords_application/Features/Home/Dialogs/DeleteOnlyPasswordDialog.dart';
+import 'package:passwords_application/Features/Home/Dialogs/PasswordEditWidgetDialog.dart';
 
 class PasswordWidget extends StatefulWidget {
   final String id;
@@ -80,6 +81,30 @@ class _PasswordWidgetState extends State<PasswordWidget> {
                     height: 150,
                     width: 80,
                     child: Icon(Icons.edit, size: 30),
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Material(
+                elevation: 4,
+                borderRadius: BorderRadius.circular(20),
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(20),
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) => DeleteOnlyPasswordDialog(
+                        id: widget.id,
+                        reloadFunc: widget.refresh,
+                      ),
+                    );
+                  },
+                  child: SizedBox(
+                    height: 150,
+                    width: 80,
+                    child: Icon(Icons.delete, size: 30),
                   ),
                 ),
               ),

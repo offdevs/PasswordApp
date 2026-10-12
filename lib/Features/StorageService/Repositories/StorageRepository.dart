@@ -125,6 +125,30 @@ class StorageRepository {
     }
   }
 
+  static Future<void> deletePassword({required String id}) async {
+    List<Map<String, dynamic>> passwords = [];
+    final data = await StorageService.getFile();
+    if (data != "") {
+      final decode = jsonDecode(data);
+      if (decode != "") {
+        passwords.addAll(
+          (decode as List).map((e) {
+            e as Map<String, dynamic>;
+            return e.map(((key, value) => MapEntry(key, value.toString())));
+          }).toList(),
+        );
+      }
+    }
+
+    for (int i = 0; i < passwords.length; i++) {
+      if (passwords[i]["id"] == id) {
+        passwords.removeAt(i);
+        break;
+      }
+    }
+    await StorageService.saveFile(jsonEncode(passwords));
+  }
+
   static Future<void> deletePasswords() async {
     await StorageService.deleteFile();
   }
