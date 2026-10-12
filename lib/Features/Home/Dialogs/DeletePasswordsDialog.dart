@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:passwords_application/Core/Theme/AppThemes.dart';
 import 'package:passwords_application/Features/StorageService/Repositories/StorageRepository.dart';
 
 class DeletePasswordsDialog extends StatefulWidget {
@@ -22,7 +23,11 @@ class _DeletePasswordsDialogState extends State<DeletePasswordsDialog> {
             children: [
               Text(
                 "Estas seguro de que quieres borrar las contraseñas?",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: AppThemes.iconAndText,
+                ),
               ),
               SizedBox(height: 10),
               Text(
@@ -43,15 +48,27 @@ class _DeletePasswordsDialogState extends State<DeletePasswordsDialog> {
                       widget.reloadFunc();
                       if (context.mounted) Navigator.pop(context);
                     },
-                    label: Text("Confirmar"),
-                    icon: Icon(Icons.check),
+                    label: Text(
+                      "Confirmar",
+                      style: TextStyle(
+                        color: AppThemes.iconAndText,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    icon: Icon(Icons.check, color: Colors.green),
                   ),
                   TextButton.icon(
                     onPressed: () {
                       if (context.mounted) Navigator.pop(context);
                     },
-                    label: Text("Cancelar"),
-                    icon: Icon(Icons.cancel),
+                    label: Text(
+                      "Cancelar",
+                      style: TextStyle(
+                        color: AppThemes.iconAndText,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    icon: Icon(Icons.cancel, color: Colors.red),
                   ),
                 ],
               ),

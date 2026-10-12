@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:passwords_application/Core/Services/GenPasswords/PasswordGenerator.dart';
+import 'package:passwords_application/Core/Theme/AppThemes.dart';
 import 'package:passwords_application/Features/StorageService/Repositories/StorageRepository.dart';
 
 class PasswordCreateWidgetDialog extends StatefulWidget {
@@ -20,7 +21,7 @@ class _PasswordCreateWidgetDialogState
   Widget build(BuildContext context) {
     return Dialog(
       child: SizedBox(
-        height: 350,
+        height: 400,
         width: 600,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -28,24 +29,69 @@ class _PasswordCreateWidgetDialogState
             children: [
               Row(
                 children: [
-                  Expanded(child: TextField(controller: name, maxLength: 16)),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextField(
+                        controller: name,
+                        maxLength: 16,
+                        textAlign: TextAlign.center,
+                        cursorColor: Colors.black,
+                        decoration: InputDecoration(
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.black),
+                          ),
+                          helperText: "Nombre de la contraseña",
+                          helperStyle: TextStyle(color: AppThemes.iconAndText),
+                        ),
+                        style: TextStyle(color: AppThemes.iconAndText),
+                      ),
+                    ),
+                  ),
                 ],
               ),
-              SizedBox(height: 50),
               Row(
                 children: [
                   Expanded(
-                    child: TextField(controller: password, maxLength: 128),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextField(
+                        controller: password,
+                        maxLength: 128,
+                        textAlign: TextAlign.center,
+                        cursorColor: Colors.black,
+                        decoration: InputDecoration(
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.black),
+                          ),
+                          helperText: "Nombre de la contraseña",
+                          helperStyle: TextStyle(color: AppThemes.iconAndText),
+                        ),
+                        style: TextStyle(color: AppThemes.iconAndText),
+                      ),
+                    ),
                   ),
-                  SizedBox(width: 30),
-                  IconButton.filled(
-                    onPressed: () async {
-                      final String passwordGen = PasswordGenerator.generate(
-                        length: lengthPassword.toInt(),
-                      );
-                      password.text = passwordGen;
-                    },
-                    icon: Icon(Icons.autorenew),
+                  SizedBox(width: 15),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 20, right: 10),
+                    child: FloatingActionButton.small(
+                      onPressed: () async {
+                        final String passwordGen = PasswordGenerator.generate(
+                          length: lengthPassword.toInt(),
+                        );
+                        password.text = passwordGen;
+                      },
+                      child: Icon(
+                        Icons.autorenew,
+                        color: AppThemes.iconAndText,
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -70,11 +116,16 @@ class _PasswordCreateWidgetDialogState
                         },
                       ),
                     ),
-                    Text(
-                      lengthPassword.toInt().toString(),
-                      style: TextStyle(
-                        fontSize: 35,
-                        fontWeight: FontWeight.bold,
+                    SizedBox(
+                      height: 50,
+                      width: 65,
+                      child: Text(
+                        lengthPassword.toInt().toString(),
+                        style: TextStyle(
+                          fontSize: 35,
+                          fontWeight: FontWeight.bold,
+                          color: AppThemes.iconAndText,
+                        ),
                       ),
                     ),
                   ],
@@ -92,8 +143,14 @@ class _PasswordCreateWidgetDialogState
                     Navigator.pop(context);
                   }
                 },
-                label: Text("Crear contraseña"),
-                icon: Icon(Icons.add),
+                label: Text(
+                  "Crear contraseña",
+                  style: TextStyle(
+                    color: AppThemes.iconAndText,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                icon: Icon(Icons.add, color: AppThemes.iconAndText),
               ),
             ],
           ),

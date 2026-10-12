@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:passwords_application/Core/Theme/AppThemes.dart';
 import 'package:passwords_application/Features/Home/Dialogs/DeletePasswordsDialog.dart';
 import 'package:passwords_application/Features/Home/Dialogs/PasswordCreateWidgetDialog.dart';
 import 'package:passwords_application/Features/StorageService/Repositories/StorageRepository.dart';
@@ -33,6 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
+        foregroundColor: AppThemes.iconAndText,
         onPressed: () async {
           await showDialog(
             context: context,
@@ -42,40 +44,40 @@ class _HomeScreenState extends State<HomeScreen> {
         },
         child: Icon(Icons.add),
       ),
-      body: Column(
+      body: Stack(
         children: [
-          Expanded(
-            child: ListView.builder(
-              itemCount: passwords?.length ?? 0,
-              itemBuilder: (_, index) {
-                final password = passwords![index];
-                return PasswordWidget(
-                  id: password["id"]!,
-                  label: password["name"]!,
-                  value: password["value"]!,
-                  refresh: getPasswords,
+          Column(
+            children: [
+              Expanded(
+                child: ListView.builder(
+                  itemCount: passwords?.length ?? 0,
+                  itemBuilder: (_, index) {
+                    final password = passwords![index];
+                    return PasswordWidget(
+                      id: password["id"]!,
+                      label: password["name"]!,
+                      value: password["value"]!,
+                      refresh: getPasswords,
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
+          Positioned(
+            bottom: 15,
+            left: 15,
+            child: FloatingActionButton(
+              backgroundColor: Colors.red,
+              foregroundColor: AppThemes.iconAndText,
+              onPressed: () async {
+                await showDialog(
+                  context: context,
+                  builder: (context) =>
+                      DeletePasswordsDialog(reloadFunc: getPasswords),
                 );
               },
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: SizedBox(
-              height: 200,
-              child: Row(
-                children: [
-                  IconButton.filled(
-                    onPressed: () async {
-                      await showDialog(
-                        context: context,
-                        builder: (context) =>
-                            DeletePasswordsDialog(reloadFunc: getPasswords),
-                      );
-                    },
-                    icon: Icon(Icons.delete, color: Colors.red),
-                  ),
-                ],
-              ),
+              child: Icon(Icons.delete),
             ),
           ),
         ],

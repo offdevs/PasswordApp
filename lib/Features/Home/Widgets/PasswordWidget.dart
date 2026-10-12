@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:passwords_application/Core/Theme/AppThemes.dart';
 import 'package:passwords_application/Features/Home/Dialogs/DeleteOnlyPasswordDialog.dart';
 import 'package:passwords_application/Features/Home/Dialogs/PasswordEditWidgetDialog.dart';
 
@@ -32,10 +33,11 @@ class _PasswordWidgetState extends State<PasswordWidget> {
           children: [
             Expanded(
               child: InkWell(
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(15),
                 onTap: () =>
                     Clipboard.setData(ClipboardData(text: widget.value)),
                 child: Card(
+                  color: AppThemes.card,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -43,6 +45,7 @@ class _PasswordWidgetState extends State<PasswordWidget> {
                       Text(
                         widget.label,
                         style: TextStyle(
+                          color: AppThemes.iconAndText,
                           fontWeight: FontWeight.bold,
                           fontSize: 50,
                         ),
@@ -50,6 +53,7 @@ class _PasswordWidgetState extends State<PasswordWidget> {
                       Text(
                         "Click para copiar",
                         style: TextStyle(
+                          color: AppThemes.iconAndText,
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
                         ),
@@ -62,6 +66,7 @@ class _PasswordWidgetState extends State<PasswordWidget> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Material(
+                color: AppThemes.floatingButton,
                 elevation: 4,
                 borderRadius: BorderRadius.circular(20),
                 child: InkWell(
@@ -88,6 +93,7 @@ class _PasswordWidgetState extends State<PasswordWidget> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Material(
+                color: Colors.red,
                 elevation: 4,
                 borderRadius: BorderRadius.circular(20),
                 child: InkWell(
